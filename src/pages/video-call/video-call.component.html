@@ -1,0 +1,8 @@
+<div *ngIf="!!circuit.call">
+  <p>Call state: <b>{{callState}}</b></p>
+  <!--
+  <video id="localVideo" #localVideo autoplay muted [src]="localVideoUrl | safeUrl" [hidden]="!localVideoUrl"></video>
+  -->
+  <video id="remoteVideo" #remoteVideo autoplay muted [src]="remoteVideoUrl | safeUrl" [hidden]="!remoteVideoUrl"></video>
+  <audio autoplay [src]="remoteAudioUrl | safeUrl"></audio>
+</div>

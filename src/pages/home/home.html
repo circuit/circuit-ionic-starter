@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Circuit Ionic Starter
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <p>Connection State: <b>{{connectionState}}</b></p>
+  <p>Logged on as: <b>{{user && user.displayName}}</b></p>
+  <button ion-button color="primary" (click)="signin()" *ngIf="!user">Sign in</button>
+  <button ion-button color="primary" (click)="signout()" *ngIf="!!user">Sign out</button>
+
+  <ion-grid *ngIf="!!user">
+      <ion-row>
+        <ion-list>
+          <ion-item>
+            <ion-label floating>Email of user to call</ion-label>
+            <ion-input type="text" #email value="circuitsdk01@gmail.com"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-row>
+      <ion-row>
+        <button ion-button color="primary" (click)="startCall(email.value)" [hidden]="!!call">Audio Call</button>
+        <button ion-button color="primary" (click)="startCall(email.value, true)" [hidden]="!!call">Video Call</button>
+        <button ion-button color="primary" (click)="endCall()" [hidden]="!call">Hangup</button>
+      </ion-row>
+      <ion-row>
+        <video-call [hidden]="!call"></video-call>
+      </ion-row>
+  </ion-grid>
+
+</ion-content>
