@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Platform} from "ionic-angular";
 import { LoadingController } from 'ionic-angular';
+import Circuit from 'circuit-sdk';
 
-declare var Circuit: any;
 declare var window: any;
 
 @Injectable()
@@ -20,7 +20,7 @@ export class CircuitService {
   oauthConfig = {
     domain: 'circuitsandbox.net',
     client_id: 'c55d010a9ac84aa9a7ee2e137a584706',
-    redirect_uri: 'circuit-ionic://callback',
+    redirect_uri: 'rh-map://callback',
     scope: 'ALL'
   };
 
@@ -91,7 +91,6 @@ export class CircuitService {
     });
   }
 
-
   /**
    * Logon to Circuit. Presents OAuth window using Chrome Custom Tab (Android)
    * and SFSafariViewController (iOS) if no token available in localStorage.
@@ -106,6 +105,7 @@ export class CircuitService {
         return user;
       })
       .catch(err => {
+        window.localStorage.removeItem('access_token')
         loading.dismiss();
         return Promise.reject(err);
       })

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import Circuit from 'circuit-sdk';
 import { CircuitService } from '../../providers/circuit.service';
 
-declare var Circuit: any;
 declare var window: any;
 
 @Component({
