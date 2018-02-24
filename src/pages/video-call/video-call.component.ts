@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { CircuitService } from '../../providers/circuit.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { CircuitService } from '../../providers/circuit.service';
   templateUrl: './video-call.component.html'
 })
 export class VideoCallComponent {
-  constructor(public circuit: CircuitService, public element: ElementRef) {
+  constructor(public circuit: CircuitService) {
   }
 
   get callState(): string {

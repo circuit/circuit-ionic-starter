@@ -16,8 +16,9 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, circuit: CircuitService) {
     platform.ready()
       .then(() => {
-        statusBar.styleDefault();
+        statusBar.hide();
         splashScreen.hide();
+        circuit.initWebRTC();
       })
       .then(() => circuit.logon())
       .catch(err => (window as any).alert('Logon error: ' + err));

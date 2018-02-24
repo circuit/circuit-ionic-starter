@@ -1,5 +1,6 @@
 video-call {
-  #localVideo, #remoteVideo {
-    height: 200px;
+  video {
+    max-width: 320px;
+    max-height: 200px;
   }
 }

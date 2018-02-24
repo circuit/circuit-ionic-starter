@@ -57,6 +57,16 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
+        <preference name="AllowInlineMediaPlayback" value="true" />
+        <config-file parent="NSCameraUsageDescription" target="*-Info.plist">
+            <string>Blink uses your camera to make video calls.</string>
+        </config-file>
+        <config-file parent="NSContactsUsageDescription" target="*-Info.plist">
+            <string>Blink needs access to your contacts in order to be able to call them.</string>
+        </config-file>
+        <config-file parent="NSMicrophoneUsageDescription" target="*-Info.plist">
+            <string>Blink uses your microphone to make calls.</string>
+        </config-file>
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
@@ -99,13 +109,16 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
     <plugin name="cordova-plugin-browsertab" spec="^0.2.0" />
     <plugin name="cordova-plugin-statusbar" spec="^2.3.0" />
+    <plugin name="cordova.plugins.diagnostic" spec="^3.6.8" />
+    <plugin name="cordova-custom-config" spec="^4.0.2" />
+    <allow-navigation href="http://192.168.1.3:8100" />
+    <plugin name="cordova-plugin-iosrtc" spec="^4.0.2" />
     <plugin name="cordova-plugin-customurlscheme" spec="^4.3.0">
-        <variable name="URL_SCHEME" value="rh-map" />
+        <variable name="URL_SCHEME" value="com.unify.ionicstarter" />
         <variable name="ANDROID_SCHEME" value=" " />
         <variable name="ANDROID_HOST" value=" " />
         <variable name="ANDROID_PATHPREFIX" value="/" />
     </plugin>
-    <plugin name="cordova.plugins.diagnostic" spec="^3.6.8" />
-    <plugin name="cordova-custom-config" spec="^4.0.2" />
-    <engine name="android" spec="6.3.0" />
+    <engine name="android" spec="^6.3.0" />
+    <engine name="ios" spec="^4.5.4" />
 </widget>

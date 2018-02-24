@@ -6,29 +6,43 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <p>Connection State: <b>{{connectionState}}</b></p>
-  <p>Logged on as: <b>{{user && user.displayName}}</b></p>
-  <button ion-button color="primary" (click)="signin()" *ngIf="!user">Sign in</button>
-  <button ion-button color="primary" (click)="signout()" *ngIf="!!user">Sign out</button>
+<ion-content no-bounce>
+  <div padding ion-fixed>
+    <div [hidden]="!!call">
+      <p>Connection State: <b>{{connectionState}}</b></p>
+      <p>Logged on as: <b>{{user && user.displayName}}</b></p>
+      <button ion-button color="primary" (click)="signin()" *ngIf="!user">Sign in</button>
+      <button ion-button color="primary" (click)="signout()" *ngIf="!!user">Sign out</button>
+    </div>
 
-  <ion-grid *ngIf="!!user">
-      <ion-row>
-        <ion-list>
-          <ion-item>
-            <ion-label floating>Email of user to call</ion-label>
-            <ion-input type="text" #email value="circuitsdk01@gmail.com"></ion-input>
-          </ion-item>
-        </ion-list>
-      </ion-row>
-      <ion-row>
-        <button ion-button color="primary" (click)="startCall(email.value)" [hidden]="!!call">Audio Call</button>
-        <button ion-button color="primary" (click)="startCall(email.value, true)" [hidden]="!!call">Video Call</button>
-        <button ion-button color="primary" (click)="endCall()" [hidden]="!call">Hangup</button>
-      </ion-row>
-      <ion-row>
-        <video-call [hidden]="!call"></video-call>
-      </ion-row>
-  </ion-grid>
-
+    <ion-grid *ngIf="!!user">
+        <ion-row [hidden]="!!call">
+          <ion-list>
+            <ion-item>
+              <ion-label floating>Email of user to call</ion-label>
+              <ion-input type="text" #email value="circuitsdk01@gmail.com"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-row>
+        <ion-row>
+          <button ion-button color="primary" (click)="startCall(email.value)" [hidden]="!!call">Audio Call</button>
+          <button ion-button color="primary" (click)="startCall(email.value, true)" [hidden]="!!call">Video Call</button>
+        </ion-row>
+        <ion-row>
+          <button ion-button color="primary" (click)="endCall()" [hidden]="!(call && !isRinging)">Hangup</button>
+          <button ion-button color="primary" (click)="endCall()" [hidden]="!isRinging">Decline</button>
+        </ion-row>
+        <ion-row>
+          <button ion-button color="primary" (click)="answerCall()" [hidden]="!isRinging">Answer Audio</button>
+          <button ion-button color="primary" (click)="answerCall(true)" [hidden]="!isRinging">Answer Video</button>
+        </ion-row>
+        <ion-row>
+          <button ion-button color="primary" (click)="toggleVideo()" [hidden]="!call || !call.isEstablished">Toggle Video</button>
+          <button ion-button color="primary" (click)="switchCamera()" [hidden]="!call || !call.localVideoUrl">Switch Cam</button>
+        </ion-row>
+        <ion-row>
+          <video-call [hidden]="!call"></video-call>
+        </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
