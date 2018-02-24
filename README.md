@@ -4,9 +4,9 @@ Ionic 2 starter application demonstrating how to use the Circuit SDK, specifical
 
 Tested on Android and iOS.
 <p float="left">
-  <img style="border: grey solid 1px" src="https://dl.dropboxusercontent.com/s/wq7iowble8zwlvh/ionic-starter-login.png?dl=0" width="200">
-  <img style="border: grey solid 1px" src="https://dl.dropboxusercontent.com/s/w5r6e5jgl6kanl7/ionic-starter-idle.png?dl=0" width="200">
-  <img style="border: grey solid 1px" src="https://dl.dropboxusercontent.com/s/1d8cmxltlq458h7/ionic-starter-video.png?dl=0" width="200">
+  <kbd><img src="https://dl.dropboxusercontent.com/s/wq7iowble8zwlvh/ionic-starter-login.png?dl=0" width="200"></kdb>
+  <kbd><img src="https://dl.dropboxusercontent.com/s/w5r6e5jgl6kanl7/ionic-starter-idle.png?dl=0" width="200"></kdb>
+  <kbd><img src="https://dl.dropboxusercontent.com/s/1d8cmxltlq458h7/ionic-starter-video.png?dl=0" width="200"></kdb>
 </p>
 
 
