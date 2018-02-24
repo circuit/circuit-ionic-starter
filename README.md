@@ -1,6 +1,6 @@
 # circuit-ionic-starter
 
-Ionic 2 starter application demonstrating how to use the Circuit SDK, specifically the challanging parts of authentication via OAuth 2.0 and WebRTC video calling.
+Ionic 2 starter application demonstrating how to use the Circuit SDK, specifically the challenging parts of authentication via OAuth 2.0 and WebRTC video calling.
 
 Tested on Android and iOS.
 <p float="left">
