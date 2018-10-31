@@ -13,15 +13,15 @@ export class VideoCallComponent {
     return this.circuit.call && this.circuit.call.state;
   }
 
-  get localVideoUrl(): string {
-    return this.circuit.call && this.circuit.call.localVideoUrl;
+  get localVideoStream(): string {
+    return this.circuit.call && this.circuit.call.localVideoStream || null;
   }
 
-  get remoteAudioUrl(): string {
-    return this.circuit.call && this.circuit.call.remoteAudioUrl;
+  get remoteAudioStream(): Object {
+    return this.circuit.call && this.circuit.call.remoteAudioStream || null;
   }
 
-  get remoteVideoUrl(): string {
-    return this.circuit.call && this.circuit.call.participants.length && this.circuit.call.participants[0].videoUrl;
+  get remoteVideoStream(): Object {
+    return this.circuit.call && this.circuit.call.participants.length && this.circuit.call.participants[0].streams.video || null;
   }
 }
