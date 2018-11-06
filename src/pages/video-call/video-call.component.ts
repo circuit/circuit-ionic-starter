@@ -22,6 +22,6 @@ export class VideoCallComponent {
   }
 
   get remoteVideoStream(): Object {
-    return this.circuit.call && this.circuit.call.participants.length && this.circuit.call.participants[0].streams.video || null;
+    return this.circuit.call && this.circuit.call.participants.length && this.circuit.call.participants[0].videoStream || null;
   }
 }
