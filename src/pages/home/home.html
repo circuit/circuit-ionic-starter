@@ -38,7 +38,7 @@
         </ion-row>
         <ion-row>
           <button ion-button color="primary" (click)="toggleVideo()" [hidden]="!call || !call.isEstablished">Toggle Video</button>
-          <button ion-button color="primary" (click)="switchCamera()" [hidden]="!call || !call.localVideoUrl">Switch Cam</button>
+          <button ion-button color="primary" (click)="switchCamera()" [hidden]="!call || !call.localVideoStream">Switch Cam</button>
         </ion-row>
         <ion-row>
           <video-call [hidden]="!call"></video-call>
