@@ -36,7 +36,7 @@
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-customurlscheme": "^4.4.0",
     "cordova-plugin-inappbrowser": "^3.1.0",
-    "cordova-plugin-iosrtc": "^5.0.1",
+    "cordova-plugin-iosrtc": "^5.0.3",
     "cordova-plugin-wkwebview-inject-cookie": "^1.0.2",
     "cordova.plugins.diagnostic": "^5.0.0",
     "core-js": "^3.2.1",
