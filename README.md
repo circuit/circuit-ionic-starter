@@ -1,19 +1,18 @@
 # circuit-ionic-starter
 
-Ionic 2 starter application demonstrating how to use the Circuit SDK, specifically the challenging parts of authentication via OAuth 2.0 and WebRTC video calling.
+Ionic 5 example application demonstrating how to use the Circuit SDK, specifically the challenging parts of authentication via OAuth 2.0 and WebRTC video calling.
 
 Tested on Android and iOS.
 <p float="left">
-  <kbd><img src="https://dl.dropboxusercontent.com/s/wq7iowble8zwlvh/ionic-starter-login.png?dl=0" width="200"></kbd>
-  <kbd><img src="https://dl.dropboxusercontent.com/s/w5r6e5jgl6kanl7/ionic-starter-idle.png?dl=0" width="200"></kbd>
-  <kbd><img src="https://dl.dropboxusercontent.com/s/1d8cmxltlq458h7/ionic-starter-video.png?dl=0" width="200"></kbd>
+  <kbd><img src="https://dl.dropboxusercontent.com/s/w1q88i4gdrx7238/ios1.png?dl=0" width="200"></kbd>
+  <kbd><img src="https://dl.dropboxusercontent.com/s/0odzzgc5zo7ja56/ios2.png?dl=0" width="200"></kbd>
 </p>
 
 
 
-> App requires Circuit SDK version 1.2.2805 or higher which is available in circuit-sdk@beta
+> App requires Circuit SDK version 1.2.7100 or higher which is available in circuit-sdk@beta. This version is compatible with the iosrtc plugin 5.0.2 or higher.
 
-> iOS Authentication and iOS/Android video calling requires running on the device
+> iOS Authentication and iOS/Android video calling requires running on the device. The simulator will not work.
 
 ## Authentication
 Authentication is done OAuth 2.0 Implicit Grant. This means the user is redirected to a Circuit hosted OAuth login page for authentication. This application will then get a token to act on the user's behalf. This is the recommended authentication method for Ionic application, same as for regular client-side web applications. For more information on OAuth types in Circuit refer to [http://circuit.github.io/oauth]().
@@ -26,8 +25,6 @@ We are using option 2 in this application which is the recommended option. Detai
 
 For the redirection of the OAuth page back to the application we are using the plugin [Custom-URL-scheme](https://github.com/EddyVerbruggen/Custom-URL-scheme) with the uri scheme `com.unify.ionicstarter`.
 
-> On the iOS device there is a bug in Ionic regarding cookies not saved on first run after install. Closing the app and reopening solves the problem. Workarounds until this is fixed are described [here](https://issues.apache.org/jira/browse/CB-12074) and [here](https://github.com/ionic-team/cordova-plugin-ionic-webview/issues/22). To keep this app simple I opted not to add these workarounds and hope Ionic/Cordova address this issue soon. Further more in the iOS simulator the cookies aren't saved at all it seems and the websocket cannot be established. Haven't had time to investigate this yet and since I am using the device, it didn't affect me. Might be related to [this](https://issues.apache.org/jira/browse/CB-10728).
-
 
 ## WebRTC calling
 
@@ -37,15 +34,18 @@ See https://circuit.github.io/jssdk for Circuit JS SDK examples, including WebRT
 Android uses Chrome webviews which natively supports WebRTC. No plugin is required.
 
 ### iOS
-iOS uses Safari webviews which don't support WebRTC. So for iOS [cordova-plugin-iosrtc
-](https://github.com/BasqueVoIPMafia/cordova-plugin-iosrtc) is used which exposes the standard WebRTC APIs. To tell Circuit to use these APIs exposed by the plugin, call `Circuit.WebRTCAdapter.init()` after the plugin is loaded:
+For iOS [cordova-plugin-iosrtc
+](https://github.com/cordova-rtc/cordova-plugin-iosrtc) is used which exposes the standard WebRTC APIs. To tell Circuit to use these APIs exposed by the plugin, call `Circuit.WebRTCAdapter.init()` after the plugin is loaded:
 
 ```javascript
-// Required for iOS only
-platform.ready()
-  .then(() => Circuit.WebRTCAdapter.init())
-  .catch(console.error);
+this.platform.ready().then(() => {
+    if (this.platform.is('ios')) {
+        Circuit.WebRTCAdapter.init();
+    }
+}
 ```
+
+> The cordova-plugin-iosrtc development is currently very active. This app uses version 5.0.5, but 6.0.0 is in beta already.
 
 
 ## Useful links for Circuit SDK
@@ -58,25 +58,37 @@ platform.ready()
 
 ### Prerequisites
 * Android Environment (or iOS if you’re working on a MacOS)
-* Cordova and Ionic installed. See https://ionicframework.com/docs/intro/installation/ for details.
+* Cordova and Ionic installed. See https://ionicframework.com/docs/installation/cli  for details.
 
-### Build and run
+### Get code
 ```bash
   git clone https://github.com/circuit/circuit-ionic-starter.git
   cd circuit-ionic-starter
   npm install
+```
+
+### Build and run on Android
+```bash
   // Connect your device
-  ionic run android --device (or ionic run ios --device)
+  ionic cordova run android
+```
+
+### Build and run on iOS
+```bash
+  // Connect your device
+  ionic cordova run ios
+  // or "ionic cordova build ios" and then use xcode to run the app on the device
+```
+
+### Run on desktop
+For WebRTC to get the media stream the app needs to be hosted on https.
+```bash
+  ionic ssl generate  // Only the first time to create the self signed certificate
+  ionic serve --ssl -- --ssl-cert ./.ionic/ssl/cert.pem --ssl-key ./.ionic/ssl/key.pem --port 8443
 ```
 
 ### Debugging
 I use Visual Code with the "Cordova Tools" extension for debugging. But you can also use the Chrome Dev Tools for Android and Safari Web Inspector for iOS.
 
 ## Known issues
-* On iOS the sign in doesn't work the very first time after installing app. See details above.
-* On iOS removing local video (with toggleVideo API) also stops incoming remote video stream.
-* On iOS video container is rendered in landscape even if video stream is portrait. Haven't looked into it yet.
-
-### TODO
-* Group calls
-* Check out ngx-cordova-oauth plugin even though its using inappbrowser
+* None

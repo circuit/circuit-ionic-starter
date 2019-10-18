@@ -1,27 +1,40 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { CircuitService } from '../providers/circuit.service';
-import { HomePage } from '../pages/home/home';
+
+import { Platform } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { CircuitService } from './services/circuit.service';
 
 declare var window: any;
+declare var wkWebView: any;
 
 @Component({
-  templateUrl: 'app.html'
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss']
 })
-export class MyApp {
-  rootPage:any = HomePage;
+export class AppComponent {
+  constructor(
+    private platform: Platform,
+    private splashScreen: SplashScreen,
+    private statusBar: StatusBar,
+    private circuit: CircuitService
+  ) {
+    this.initializeApp();
+  }
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, circuit: CircuitService) {
-    platform.ready()
-      .then(() => {
-        statusBar.hide();
-        splashScreen.hide();
-        circuit.initWebRTC();
-      })
-      .then(() => circuit.logon())
-      .catch(err => (window as any).alert('Logon error: ' + err));
+  initializeApp() {
+    this.platform.ready().then(() => {
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
+
+      if (this.platform.is('ios')) {
+        wkWebView.injectCookie(this.circuit.oauthConfig.domain + '/');
+        this.circuit.initWebRTC();
+      }
+
+      this.circuit.logon()
+        .catch(console.error);
+    });
   }
 }
-

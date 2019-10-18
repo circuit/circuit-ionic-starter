@@ -1,8 +1,7 @@
 {
-  "name": "circuit-ionic-starter",
-  "app_id": "",
-  "type": "ionic-angular",
+  "name": "circuitsdk",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "type": "angular"
 }

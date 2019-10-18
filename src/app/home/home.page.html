@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Circuit Ionic Example</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-bounce has-bouncing="false" forceOverscroll="false">
+  <div padding ion-fixed>
+    <div [hidden]="!!call">
+      <p>Connection State: <b>{{connectionState}}</b></p>
+      <p>Logged on as: <b>{{user && user.displayName}}</b></p>
+      <ion-button color="primary" (click)="signin()" *ngIf="!user">Sign in</ion-button>
+      <ion-button color="primary" (click)="signout()" *ngIf="!!user">Sign out</ion-button>
+    </div>
+
+    <ion-grid *ngIf="!!user">
+      <ion-row [hidden]="!!call">
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked">Email of user to call</ion-label>
+            <ion-input type="text" #email value="circuitsdk01@gmail.com"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-row>
+      <ion-row>
+        <ion-button color="primary" (click)="startCall(email.value)" [hidden]="!!call">Audio Call</ion-button>
+        <ion-button color="primary" (click)="startCall(email.value, true)" [hidden]="!!call">Video Call</ion-button>
+      </ion-row>
+      <ion-row>
+        <ion-button color="primary" (click)="endCall()" [hidden]="!(call && !isRinging)">Hangup</ion-button>
+        <ion-button color="primary" (click)="endCall()" [hidden]="!isRinging">Decline</ion-button>
+      </ion-row>
+      <ion-row>
+        <ion-button color="primary" (click)="answerCall()" [hidden]="!isRinging">Answer Audio</ion-button>
+        <ion-button color="primary" (click)="answerCall(true)" [hidden]="!isRinging">Answer Video</ion-button>
+      </ion-row>
+      <ion-row>
+        <ion-button color="primary" (click)="toggleVideo()" [hidden]="!call || !call.isEstablished">Toggle
+          Video</ion-button>
+        <ion-button color="primary" (click)="switchCamera()" [hidden]="!call || !call.isEstablished || !call.localVideoStream || videoDevices.length < 2">Switch
+          Cam</ion-button>
+      </ion-row>
+      <ion-row>
+          <div #videoContainer></div>
+        </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-content>
