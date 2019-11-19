@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { BrowserTab } from '@ionic-native/browser-tab/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +20,8 @@ import { BrowserTab } from '@ionic-native/browser-tab/ngx';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    BrowserTab
+    BrowserTab,
+    AndroidPermissions
   ],
   bootstrap: [AppComponent]
 })

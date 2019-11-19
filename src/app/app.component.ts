@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { CircuitService } from './services/circuit.service';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
 declare var window: any;
 declare var wkWebView: any;
@@ -18,6 +19,7 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
+    private androidPermissions: AndroidPermissions,
     private circuit: CircuitService
   ) {
     this.initializeApp();

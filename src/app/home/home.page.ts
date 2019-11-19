@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Platform } from '@ionic/angular';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { CircuitService } from '../services/circuit.service';
 import Circuit from 'circuit-sdk';
 
@@ -22,7 +23,11 @@ export class HomePage {
   localVideoEl: any;
   remoteVideoEl: any
   
-  constructor(private circuit: CircuitService, private platform: Platform) {
+  constructor(
+    private circuit: CircuitService,
+    private platform: Platform,
+    private androidPermissions: AndroidPermissions
+  ) {
     this.circuit.addEventListener('connectionStateChanged', async evt => {
       this.connectionState = evt.state;
       if (evt.state === Circuit.Enums.ConnectionState.Connected) {
@@ -96,28 +101,14 @@ export class HomePage {
   // Request permissions for using camera and mic on android device
   private requestPermissions() {
     if (this.platform.is('android')) {
-      window.cordova.plugins.diagnostic.requestRuntimePermissions((statuses) => {
-        for (let permission in statuses) {
-          switch (statuses[permission]) {
-            case window.cordova.plugins.diagnostic.permissionStatus.GRANTED:
-              console.log(`Permission granted to use ${permission}`);
-              break;
-            case window.cordova.plugins.diagnostic.permissionStatus.NOT_REQUESTED:
-              console.warn(`Permission to use ${permission} has not been requested yet`);
-              break;
-            case window.cordova.plugins.diagnostic.permissionStatus.DENIED:
-              console.warn(`Permission denied to use ${permission}`);
-              break;
-            case window.cordova.plugins.diagnostic.permissionStatus.DENIED_ALWAYS:
-              console.warn(`Permission permanently denied to use ${permission}`);
-              break;
-          }
-        }
-      }, (error) => console.error(`The following error occurred: ${error}`), [
-        window.cordova.plugins.diagnostic.permission.CAMERA,
-        window.cordova.plugins.diagnostic.permission.RECORD_AUDIO,
-        window.cordova.plugins.diagnostic.permission.WRITE_EXTERNAL_STORAGE
-      ]);
+      this.androidPermissions.requestPermissions(
+        [
+          this.androidPermissions.PERMISSION.CAMERA, 
+          this.androidPermissions.PERMISSION.RECORD_AUDIO, 
+          this.androidPermissions.PERMISSION.MODIFY_AUDIO_SETTINGS,
+          this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE
+        ]
+      );
     }
   }
 
@@ -149,7 +140,13 @@ export class HomePage {
 
   // User action to start a direct call
   async startCall(email, video) {
-    this.call = await this.circuit.startCall(email, video);
+      navigator.mediaDevices.enumerateDevices().then(a => {
+        console.log(a);
+      }).catch(err => {
+        console.error(err)
+      })
+
+      this.call = await this.circuit.startCall(email, video);
   }
 
   // User action to answer call
