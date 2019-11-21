@@ -33,6 +33,15 @@ See https://circuit.github.io/jssdk for Circuit JS SDK examples, including WebRT
 ### Android
 Android uses Chrome webviews which natively supports WebRTC. No plugin is required.
 
+Android requires the permissions to be defined in the manifest, so if not already listed, add these permissions to /platforms/android/app/src/main/AndroidManifest.xml.
+
+```xml
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+<uses-permission android:name="android.permission.RECORD_AUDIO" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+```
+
 ### iOS
 For iOS [cordova-plugin-iosrtc
 ](https://github.com/cordova-rtc/cordova-plugin-iosrtc) is used which exposes the standard WebRTC APIs. To tell Circuit to use these APIs exposed by the plugin, call `Circuit.WebRTCAdapter.init()` after the plugin is loaded:
