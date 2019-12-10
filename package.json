@@ -27,12 +27,12 @@
     "@ionic/angular": "^4.7.1",
     "circuit-sdk": "^1.2.7100",
     "cordova-android": "8.1.0",
-    "cordova-ios": "^5.0.1",
+    "cordova-ios": "^5.1.1",
     "cordova-plugin-android-permissions": "^1.0.2",
     "cordova-plugin-browsertab": "^0.2.0",
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-customurlscheme": "^4.4.0",
-    "cordova-plugin-iosrtc": "^5.0.5",
+    "cordova-plugin-iosrtc": "^6.0.5",
     "cordova-plugin-wkwebview-inject-cookie": "^1.0.2",
     "core-js": "^2.5.4",
     "os": "^0.1.1",
@@ -95,8 +95,8 @@
       "cordova-plugin-android-permissions": {}
     },
     "platforms": [
-      "ios",
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

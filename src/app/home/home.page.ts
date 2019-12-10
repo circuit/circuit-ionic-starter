@@ -66,7 +66,7 @@ export class HomePage {
   // Create video elements if needed, or update its srcObject.
   // Done this way to please the iosrtc plugin
   private updateVideos() {
-    const newLocalVideoStream = this.call.localVideoStream;
+    const newLocalVideoStream = this.call.localStreams.video;
     if (this.localVideoStream !== newLocalVideoStream) {
       !this.localVideoEl && (this.localVideoEl = this.createVideoElement());
       this.localVideoEl.srcObject = newLocalVideoStream;
@@ -141,7 +141,6 @@ export class HomePage {
   // User action to start a direct call
   async startCall(email, video) {
       navigator.mediaDevices.enumerateDevices().then(a => {
-        console.log(a);
       }).catch(err => {
         console.error(err)
       })
